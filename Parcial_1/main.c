@@ -94,7 +94,7 @@ int main()
                 case 7: //Listar musicos
                     if(flagMusico==0)
                     {
-                        printf("\nAun no se ha dado de alta ninguna orquesta");
+                        printf("\nAun no se ha dado de alta ningun musico");
                     }
                     else
                         Informes_listarMusicos(arrayMusico, arrayInst, QTY_MUSICO, QTY_INST);
@@ -127,34 +127,57 @@ int main()
 
 int cargarDatos(Instrumento arrayInst[], Musico arrayMusico[], Orquesta arrayOrq[], int *contadorIdOrq, int *contadorIdInst, int *contadorIdMusico)
 {
-
-//musico
-    arrayMusico[0].isEmpty=0;
-    arrayMusico[0].idUnico=*contadorIdMusico;
-    arrayMusico[0].edad=25;
-    arrayMusico[0].idOrq=*contadorIdOrq;
-    arrayMusico[0].idInst=*contadorIdInst;
-    strcpy(arrayMusico[0].nombre,"Federico");
-    strcpy(arrayMusico[0].apellido,"Mechi");
+    int i=0;
+    //musico
+    arrayMusico[i].isEmpty=0;
+    arrayMusico[i].idUnico=*contadorIdMusico;
+    arrayMusico[i].edad=25;
+    arrayMusico[i].idOrq=*contadorIdOrq;
+    arrayMusico[i].idInst=*contadorIdInst;
+    strcpy(arrayMusico[i].nombre,"Federico");
+    strcpy(arrayMusico[i].apellido,"Mechi");
     (*contadorIdMusico)++;
 
     //orquesta
-    arrayOrq[0].isEmpty=0;
-    arrayOrq[0].idUnico=*contadorIdOrq;
-    arrayOrq[0].tipo=0;
-    strcpy(arrayOrq[0].nombre,"Orquesta primera");
-    strcpy(arrayOrq[0].lugar,"Avellaneda");
+    arrayOrq[i].isEmpty=0;
+    arrayOrq[i].idUnico=*contadorIdOrq;
+    arrayOrq[i].tipo=0;
+    strcpy(arrayOrq[i].nombre,"Orquesta primera");
+    strcpy(arrayOrq[i].lugar,"Avellaneda");
     (*contadorIdOrq)++;
 
-
-
     //instrumento
-    arrayInst[0].isEmpty=0;
-    arrayInst[0].idUnico=*contadorIdInst;
-    arrayInst[0].tipo=1;
-    strcpy(arrayInst[0].nombre,"Guitarra");
+    arrayInst[i].isEmpty=0;
+    arrayInst[i].idUnico=*contadorIdInst;
+    arrayInst[i].tipo=1;
+    strcpy(arrayInst[i].nombre,"Guitarra");
     (*contadorIdInst)++;
 
+    i++;
+    //musico
+    arrayMusico[i].isEmpty=0;
+    arrayMusico[i].idUnico=*contadorIdMusico;
+    arrayMusico[i].edad=24;
+    arrayMusico[i].idOrq=*contadorIdOrq;
+    arrayMusico[i].idInst=*contadorIdInst;
+    strcpy(arrayMusico[i].nombre,"Camila");
+    strcpy(arrayMusico[i].apellido,"Rori");
+    (*contadorIdMusico)++;
+
+    //orquesta
+    arrayOrq[i].isEmpty=0;
+    arrayOrq[i].idUnico=*contadorIdOrq;
+    arrayOrq[i].tipo=0;
+    strcpy(arrayOrq[i].nombre,"Orquesta segunda");
+    strcpy(arrayOrq[i].lugar,"Quilmes");
+    (*contadorIdOrq)++;
+
+    //instrumento
+    arrayInst[i].isEmpty=0;
+    arrayInst[i].idUnico=*contadorIdInst;
+    arrayInst[i].tipo=1;
+    strcpy(arrayInst[i].nombre,"Flauta");
+    (*contadorIdInst)++;
     return 0;
 }
 
@@ -179,6 +202,9 @@ Entidades:
         Nombre
         Tipo
 
+Falta: validar tipos, no mayor a 3 o 4
+
 
 */
+
 
