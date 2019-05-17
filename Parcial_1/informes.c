@@ -29,9 +29,6 @@ int Informes_listarMusicos(Musico arrayA[], Instrumento arrayB[], int sizeI, int
             {
                 Instrumento_buscarID(arrayB,sizeJ,arrayA[i].idInst,&j);                            //Obtengo la posicion de la 2da entidad buscando por el campo en comun
 
-                printf("\nID A: %d\nID B: %d",
-                       arrayA[i].idUnico,arrayB[j].idUnico);
-
                 printf("\n ID: %d   Nombre: %s  Apellido: %s    Edad: %d    Nombre instrumento: %s     Tipo instrumento: ",
                        arrayA[i].idUnico,arrayA[i].nombre,arrayA[i].apellido,arrayA[i].edad,arrayB[j].nombre);
                 if(arrayB[j].tipo==1)

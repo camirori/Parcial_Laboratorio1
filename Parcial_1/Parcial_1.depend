@@ -35,7 +35,7 @@
 
 1558047259 /home/alumno/Workspace/Parcial_Laboratorio1/Parcial_1/musico.h
 
-1558051030 source:/home/alumno/Workspace/Parcial_Laboratorio1/Parcial_1/main.c
+1558052209 source:/home/alumno/Workspace/Parcial_Laboratorio1/Parcial_1/main.c
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
@@ -43,6 +43,7 @@
 	"orquesta.h"
 	"instrumento.h"
 	"musico.h"
+	"informes.h"
 
 1558048306 /home/alumno/Workspace/Parcial_Laboratorio1/Parcial_1/instrumento.h
 
