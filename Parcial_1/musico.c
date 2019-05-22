@@ -91,6 +91,61 @@ int Musico_buscarID(Musico array[], int size, int valosBuscado, int* posicion)
     return retorno;
 }
 
+
+/** \brief Busca un ID en un array y devuelve la posicion en que se encuentra
+* \param array Musico Array de Musico
+* \param size int Tamaño del array
+* \param posicion int* Puntero a la posicion del array donde se encuentra el valor buscado
+* \return int Return (-1) si no encuentra el valor buscado o Error [Invalid length or NULL pointer] - (0) si encuentra el valor buscado
+*
+*/
+int Musico_buscarOrq(Musico array[], int size, int valosBuscado, int* posicion)
+{
+    int retorno=-1;
+    int i;
+    if(array!= NULL && size>=0)
+    {
+        for(i=0;i<size;i++)
+        {
+            if(array[i].isEmpty==1)
+                continue;
+            else if(array[i].idOrq==valosBuscado)
+            {
+                retorno=0;
+                *posicion=i;
+                break;
+            }
+        }
+    }
+    return retorno;
+}
+/** \brief Busca un ID en un array y devuelve la posicion en que se encuentra
+* \param array Musico Array de Musico
+* \param size int Tamaño del array
+* \param posicion int* Puntero a la posicion del array donde se encuentra el valor buscado
+* \return int Return (-1) si no encuentra el valor buscado o Error [Invalid length or NULL pointer] - (0) si encuentra el valor buscado
+*
+*/
+int Musico_buscarInst(Musico array[], int size, int valosBuscado, int* posicion)
+{
+    int retorno=-1;
+    int i;
+    if(array!= NULL && size>=0)
+    {
+        for(i=0;i<size;i++)
+        {
+            if(array[i].isEmpty==1)
+                continue;
+            else if(array[i].idInst==valosBuscado)
+            {
+                retorno=0;
+                *posicion=i;
+                break;
+            }
+        }
+    }
+    return retorno;
+}
 //*****************************************
 //Alta
 /** \brief Solicita los datos para completar la primer posicion vacia de un array
@@ -277,6 +332,72 @@ int Musico_listar(Musico array[], int size)
             else
                 printf("\n ID: %d   Nombre: %s  Apellido: %s    Edad: %d",                  //Imprimo tmb edad porque nunca me lo pide...
                        array[i].idUnico,array[i].nombre,array[i].apellido,array[i].edad);
+        }
+        retorno=0;
+    }
+    return retorno;
+}
+
+//Ordenar
+/** \brief Ordena por campo apellido los elementos de un array
+* \param array Musico Array de Musico
+* \param size int Tamaño del array
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se ordena exitosamente
+*
+*/
+int Musico_ordenarPorApelldio(Musico array[],int size)                              //cambiar Tipo
+{
+    int retorno=-1;
+    int i, j;
+    char bufferApellido[TEXT_SIZE];                               //cambiar campo varString
+    int bufferId;
+    int bufferIsEmpty;
+
+    int bufferEdad;                                              //cambiar buffer int
+    int bufferIdOrq;                                              //cambiar buffer int
+    int bufferIdInst;                                              //cambiar buffer int
+    char bufferNombre[TEXT_SIZE];                           //cambiar campo varLongString
+
+    if(array!=NULL && size>=0)
+    {
+        for (i = 1; i < size; i++)
+        {
+            bufferId=array[i].idUnico;                                   //cambiar campo id
+            bufferIsEmpty=array[i].isEmpty;
+
+            strcpy(bufferApellido,array[i].apellido);                      //cambiar campo varString
+            bufferEdad=array[i].edad;                                //cambiar campo varInt
+            bufferIdOrq=array[i].idOrq;                                //cambiar campo varInt
+            bufferIdInst=array[i].idInst;                                //cambiar campo varInt
+            strcpy(bufferNombre,array[i].nombre);          //cambiar campo varLongString
+
+
+            j = i - 1;
+            while ((j >= 0) && strcmp(bufferApellido,array[j].apellido)<0)         //cambiar campo varString                 //Si tiene mas de un criterio se lo agrego, Ej. bufferInt<array[j].varInt
+            {                                                                                                               //buffer < campo ascendente   buffer > campo descendente
+                array[j + 1].idUnico=array[j].idUnico;                                //cambiar campo id
+                array[j + 1].isEmpty=array[j].isEmpty;
+
+                strcpy(array[j + 1].apellido,array[j].apellido);          //cambiar campo varString
+
+                array[j + 1].edad=array[j].edad;                        //cambiar campo varInt
+                array[j + 1].idOrq=array[j].idOrq;                        //cambiar campo varInt
+                array[j + 1].idInst=array[j].idInst;                        //cambiar campo varInt
+
+                strcpy(array[j + 1].nombre,array[j].nombre);  //cambiar campo varLongString
+
+                j--;
+            }
+            array[j + 1].idUnico=bufferId;                                        //cambiar campo id
+            array[j + 1].isEmpty=bufferIsEmpty;
+
+            strcpy(array[j + 1].apellido,bufferApellido);                     //cambiar campo varString
+
+            array[j + 1].edad=bufferEdad;                                                        //cambiar campo varInt
+            array[j + 1].idOrq=bufferIdOrq;                                                        //cambiar campo varInt
+            array[j + 1].idInst=bufferIdInst;                                                        //cambiar campo varInt
+
+            strcpy(array[j + 1].nombre,bufferNombre);                                  //cambiar campo varLongString
         }
         retorno=0;
     }
