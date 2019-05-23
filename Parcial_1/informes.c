@@ -8,12 +8,12 @@
 #include "orquesta.h"
 
 
-/** \brief Lista los elementos de dos arrays vinculados
+/** \brief Lista los elementos del array de musicos e instrumento vinculado
 * \param arrayA Musico Array de Musico
 * \param arrayB Instrumento Array de Instrumento
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
 int Informes_listarMusicos(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)
@@ -27,22 +27,26 @@ int Informes_listarMusicos(Musico arrayA[], Instrumento arrayB[], int sizeI, int
         {
             if(arrayA[i].isEmpty!=1)
             {
-                Instrumento_buscarID(arrayB,sizeJ,arrayA[i].idInst,&j);                           //Obtengo la posicion de la 2da entidad buscando por el campo en comun
+                if(Instrumento_buscarID(arrayB,sizeJ,arrayA[i].idInst,&j)==-1)                           //Obtengo la posicion de la 2da entidad buscando por el campo en comun
+                    j=-1;
 
-
-                printf("\n ID: %d   Nombre: %s  Apellido: %s    Edad: %d    Nombre instrumento: %s     Tipo instrumento: ",
-                       arrayA[i].idUnico,arrayA[i].nombre,arrayA[i].apellido,arrayA[i].edad,arrayB[j].nombre);
-                if(arrayB[j].tipo==1)
-                    printf("Cuerdas");
-                else if(arrayB[j].tipo==2)
-                    printf("Viento-madera");
-                else if(arrayB[j].tipo==3)
-                    printf("Viento-metal");
-                else if(arrayB[j].tipo==4)
-                    printf("Percusion");
+                printf("\nID: %d   Nombre: %s  Apellido: %s    Edad: %d    ", arrayA[i].idUnico,arrayA[i].nombre,arrayA[i].apellido,arrayA[i].edad);
+                if(j==-1)
+                    printf("    ID instrumento desconocido");
                 else
-                    printf("Desconocido");
-
+                {
+                    printf("     Nombre instrumento: %s     Tipo instrumento: ",arrayB[j].nombre);
+                    if(arrayB[j].tipo==1)
+                        printf("Cuerdas");
+                    else if(arrayB[j].tipo==2)
+                        printf("Viento-madera");
+                    else if(arrayB[j].tipo==3)
+                        printf("Viento-metal");
+                    else if(arrayB[j].tipo==4)
+                        printf("Percusion");
+                    else
+                        printf("Desconocido");
+                }
             }
         }
         retorno=0;
@@ -50,107 +54,123 @@ int Informes_listarMusicos(Musico arrayA[], Instrumento arrayB[], int sizeI, int
     return retorno;
 }
 
-//A listar orquesta
-//Orquestas de un lugar en particular ingresado por el usuario, imprimir ID orquesta, nombre, tipo y lugar
-/** \brief Lista los elementos de un array
+//A listar orquesta de un lugar en particular ingresado por el usuario, imprimir ID orquesta, nombre, tipo y lugar
+/** \brief Solicita un lugar y lista las orquestas correspondientes a ese lugar
 * \param array Orquesta Array de Orquesta
 * \param size int Tamaño del array
 * \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
 *
 */
-int Informes_a(Orquesta array[], int size)
+int Informes_a_listarOrqPorLugar(Orquesta array[], int size)
 {
     int retorno=-1;
     int i;
     char criterio[TEXT_SIZE];
+    int flag=-1;
     if(array!=NULL && size>=0)
     {
-        utn_getTexto("\nLugar: ","\nError",1,TEXT_SIZE,1,criterio);
-        for(i=0;i<size;i++)
+        if(utn_getTexto("\nLugar: ","\nError",1,TEXT_SIZE,1,criterio)==0)
         {
-            if(array[i].isEmpty!=1 && strcmp(array[i].lugar,criterio)==0)
+            for(i=0;i<size;i++)
             {
-                printf("\n ID: %d   Nombre: %s  Lugar: %s   Tipo: ",
-                       array[i].idUnico,array[i].nombre,array[i].lugar);
-                if(array[i].tipo==1)
-                    printf("Sinfonica");
-                else if(array[i].tipo==2)
-                    printf("Filarmonica");
-                else if(array[i].tipo==3)
-                    printf("Camara");
-                else
-                    printf("Desconocido");
+                if(array[i].isEmpty!=1 && strcmp(array[i].lugar,criterio)==0)
+                {
+                    printf("\n ID: %d   Nombre: %s  Lugar: %s   Tipo: ",
+                           array[i].idUnico,array[i].nombre,array[i].lugar);
+                    if(array[i].tipo==1)
+                        printf("Sinfonica");
+                    else if(array[i].tipo==2)
+                        printf("Filarmonica");
+                    else if(array[i].tipo==3)
+                        printf("Camara");
+                    else
+                        printf("Desconocido");
+                    flag=0;
+                }
             }
+            if(flag==-1)
+                printf("\nNo se han encontrado orquestas para el lugar indicado");
         }
         retorno=0;
     }
     return retorno;
 }
 
-//*****************************************
+
 //B Listar musico: menores de 25 años, mostrar id, nombre apellido, edad, nombre instrumento, nombre orquesta
 
-/** \brief Busca un valor y lista los elementos de dos arrays vinculados
+/** \brief Lista los musicos menores de 25 años con informacion de arrays vinculados
 * \param arrayA Musico Array de Musico
 * \param arrayB Orquesta Array de Orquesta
 * \param arrayC Instrumento Array de Instrumento
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \param sizek int Tamaño del arrayC
-* \param criterio char* Puntero al valor que debe contener el elemento del array para que se liste
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \param sizeK int Tamaño del arrayC
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
-int Informes_b(Musico arrayA[], Orquesta arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek)  //Valores de dos arrays. Si es valor repetido se vuelve a imprimir
+int Informes_b_listarMusicosEdad(Musico arrayA[], Orquesta arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizeK)
 {
     int retorno=-1;
     int i;
     int j;
     int k;
-    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0 && arrayC!=NULL && sizek>=0)
+    int flag=-1;
+    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0 && arrayC!=NULL && sizeK>=0)
     {
-        printf("\nMusicos con menos de 25 años:");
+        printf("\nMusicos menores de 25:");
         for(i=0;i<sizeI;i++)                                                                            //Obtengo la posicion de la primer entidad
         {
             if(arrayA[i].isEmpty!=1 && arrayA[i].edad<25)
             {
-                Orquesta_buscarID(arrayB,sizeJ,arrayA[i].idOrq,&j);
-                Instrumento_buscarID(arrayC,sizek,arrayA[i].idInst,&k);
-                printf("\n ID: %d   Nombre: %s  Apellido: %s    Edad: %d    Nombre instrumento: %s  Nombre orquesta:    %s",
-                       arrayA[i].idUnico,arrayA[i].nombre,arrayA[i].apellido,arrayA[i].edad,arrayC[k].nombre,arrayB[j].nombre);
+                if(Orquesta_buscarID(arrayB,sizeJ,arrayA[i].idOrq,&j)==-1)
+                    j=-1;
+                if(Instrumento_buscarID(arrayC,sizeK,arrayA[i].idInst,&k)==-1)
+                    k=-1;
+                printf("\n ID: %d   Nombre: %s  Apellido: %s    Edad: %d  ",
+                       arrayA[i].idUnico,arrayA[i].nombre,arrayA[i].apellido,arrayA[i].edad);
+                if(k==-1)
+                    printf("    Instrumento desconocido");
+                else
+                    printf("    Nombre instrumento: %s",arrayC[k].nombre);
+                if(j==-1)
+                    printf("    Orquesta desconocida");
+                else
+                    printf("    Nombre orquesta: %s",arrayB[j].nombre);
+                flag=0;
             }
         }
+        if(flag==-1)
+            printf("\nNo se encontraron musicos menores de 25");
         retorno=0;
     }
     return retorno;
 }
 
 //C Listar orquestas con menos de 6 musicos, imprime ID orquesta, nombre, tipo y lugar
-/** \brief Busca un valor repetido y lo lista una sola vez, junto con otros elementos de dos arrays vinculados
+/** \brief Lista las orquestas con menos de 6 musicos
 * \param arrayA Orquesta Array de Orquesta
 * \param arrayB Musico Array de Musico
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
-int Informes_c(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ)         //cambiar Tipo
+int Informes_c_listarOrqCantMusico(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ)
 {
     int retorno=-1;
     int i;
     int j;
     int contador=0;
-
+    int flag=-1;
     if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
     {
         printf("\nOrquestas con menos de 6 musicos:");
         for(i=0;i<sizeI;i++)
         {
-            if(arrayA[i].isEmpty==1)
-                continue;                                                                 //Si ese valor ya aparecio > continue
-            else
+            if(arrayA[i].isEmpty!=1)
             {
-                for(j=0,contador=0;j<sizeJ;j++)                                                            //Recorro por segunda vez el mismo array
+                for(j=0,contador=0;j<sizeJ;j++)
                 {
                     if(arrayB[j].isEmpty!=1 && arrayA[i].idUnico==arrayB[j].idOrq)     //Busco todas las veces que aparece ese id
                     {
@@ -169,59 +189,65 @@ int Informes_c(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ)        
                         printf("Camara");
                     else
                         printf("Desconocido");
+                    flag=0;
                 }
             }
         }
+        if(flag==-1)
+            printf("\nNo se encontraron orquestas con menos de 6 musicos");
         retorno=0;
     }
     return retorno;
 }
 
-//D Listar instrumentos de una orquesta
-/** \brief Busca un valor y lista los elementos de dos arrays vinculados
+//D
+/** \brief Solicita un ID de orquesta y lista sus intrumentos
 * \param arrayA Musico Array de Musico
-* \param arrayB Orquesta Array de Orquesta
-* \param arrayC Instrumento Array de Instrumento
+* \param arrayB Instrumento Array de Instrumento
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \param sizek int Tamaño del arrayC
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
-int Informes_d(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek)  //Valores de dos arrays. Si es valor repetido se vuelve a imprimir
+int Informes_d_listarInstPorOrq(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)
 {
     int retorno=-1;
     int i;
     int j;
-    int k;
     int criterio;
-    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0 && arrayC!=NULL && sizek>=0)
+    int flag=-1;
+    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
     {
-        utn_getUnsignedInt("\nID orquesta: ","\nError",1,sizeof(int),1,&criterio);
-        printf("\nInstrumentos:");
-
-        for(i=0;i<sizeI;i++)                                                                            //Obtengo la posicion de la primer entidad
+        if(utn_getUnsignedInt("\nID orquesta: ","\nError",1,sizeof(int),1,&criterio)==0)
         {
-            if(arrayA[i].isEmpty!=1 && arrayA[i].idUnico==criterio)
+            printf("\nInstrumentos de la orquesta:");
+            for(i=0;i<sizeI;i++)
             {
-                Musico_buscarOrq(arrayB,sizeJ,arrayA[i].idUnico,&j);
+                if(arrayA[i].isEmpty!=1 && arrayA[i].idOrq==criterio)
+                {
+                    if(Instrumento_buscarID(arrayB,sizeJ,arrayA[i].idInst,&j)==0)
+                    {
+                        printf("\nNombre: %s  Tipo: ",arrayB[j].nombre);
+                        if(arrayB[j].tipo==1)
+                            printf("Cuerdas");
+                        else if(arrayB[j].tipo==2)
+                            printf("Viento-madera");
+                        else if(arrayB[j].tipo==3)
+                            printf("Viento-metal");
+                        else if(arrayB[j].tipo==4)
+                            printf("Percusion");
+                        else
+                            printf("Desconocido");
+                    }
+                    else
+                        printf("\nTipo de instrumento desconocido");
 
-                Instrumento_buscarID(arrayC,sizek,arrayB[i].idInst,&k);
-
-                printf("\nNombre: %s  Tipo: ",arrayC[k].nombre);
-                if(arrayC[k].tipo==1)
-                    printf("Cuerdas");
-                else if(arrayC[k].tipo==2)
-                    printf("Viento-madera");
-                else if(arrayC[k].tipo==3)
-                    printf("Viento-metal");
-                else if(arrayC[k].tipo==4)
-                    printf("Percusion");
-                else
-                    printf("Desconocido");
-                printf("  Nombre musico: %s",arrayB[j].nombre);
-
+                    printf("  Nombre musico: %s",arrayA[i].nombre);
+                    flag=0;
+                }
             }
+            if(flag==-1)
+                printf("\nLa orquesta no tiene instrumentos ingresados");
         }
         retorno=0;
     }
@@ -229,16 +255,15 @@ int Informes_d(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int siz
 }
 
 //E
-/** \brief Busca un valor repetido y lo lista una sola vez, junto con otros elementos de dos arrays vinculados
+/** \brief Lista las orquestas completas de acuerdo a la cantidad de instrumentos
 * \param arrayA Orquesta Array de Orquesta
 * \param arrayB Musico Array de Musico
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
-//Lista un campo que se repite, lo imprime una sola vez y calcula contador y acumulado
-int Informes_e(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek)         //cambiar Tipo
+int Informes_e_listarOrqCompleta(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek)
 {
     int retorno=-1;
     int i;
@@ -247,21 +272,18 @@ int Informes_e(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int siz
     int contadorCuerda=0;
     int contadorViento=0;
     int contadorPerc=0;
-
+    int flag=-1;
     if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0 && arrayC!=NULL && sizek>=0)
     {
         printf("\nOrquestas completas:");
         for(i=0;i<sizeI;i++)
         {
-            if(arrayA[i].isEmpty==1)
-                continue;                                                                 //Si ese valor ya aparecio > continue
-            else
+            if(arrayA[i].isEmpty!=1)
             {
-                for(j=0,contadorCuerda=0, contadorViento=0, contadorPerc=0;j<sizeJ;j++)                                                            //Recorro por segunda vez el mismo array
+                for(j=0,contadorCuerda=0, contadorViento=0, contadorPerc=0;j<sizeJ;j++)
                 {
                     if(arrayB[j].isEmpty!=1 && arrayA[i].idUnico==arrayB[j].idOrq)     //Busco todas las veces que aparece ese id
                     {
-                        Musico_buscarOrq(arrayB,sizeJ,arrayA[i].idUnico,&j);
                         Instrumento_buscarID(arrayC,sizek,arrayB[j].idInst,&k);
                         if(arrayC[k].tipo==1)
                             contadorCuerda++;
@@ -283,42 +305,44 @@ int Informes_e(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int siz
                         printf("Camara");
                     else
                         printf("Desconocido");
+
+                    flag=0;
                 }
             }
         }
+        if(flag==-1)
+            printf("\nNo se encontraron orquestas completas");
         retorno=0;
     }
     return retorno;
 }
 
 //F
-/** \brief Busca un maximo de ocurrencia y acumulado
+/** \brief Lista las orquestas con la menor cantidad de musicos
 * \param arrayA Orquesta Array de Orquesta
 * \param arrayB Musico Array de Musico
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
-int Informes_f(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ)
+int Informes_f_orqMinMusicos(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ)
 {
     int retorno=-1;
     int i;
     int j;
     int minContador=0;
     int contador=0;
-    //int iMinContador [sizeI];
-    int posicion;
+    int iMin[sizeI];
 
     if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
     {
         for(i=0;i<sizeI;i++)
         {
-            if(arrayA[i].isEmpty==1)
-                continue;                                                                 //Si ese valor ya aparecio > continue
-            else
+            iMin[i]=-2;                        //Para marcar los lugares vacios
+            if(arrayA[i].isEmpty!=1)
             {
-                for(j=0,contador=0;j<sizeJ;j++)                                                            //Recorro por segunda vez el mismo array
+                for(j=0,contador=0;j<sizeJ;j++)
                 {
                     if(arrayB[j].isEmpty!=1 && arrayA[i].idUnico==arrayB[j].idOrq)     //Busco todas las veces que aparece ese id
                     {
@@ -326,73 +350,57 @@ int Informes_f(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ)
                     }
                 }
 
-                if(contador<minContador || i==0)
+                if(i==0)
+                    minContador=contador;
+                else if(contador<minContador)
                 {
                     minContador=contador;
-                    //iMinContador[i-1]=-1;                       //Si mas de un cuit tiene la mayor facturacion
-                    //iMinContador[i]=i;
-                    posicion=i;
+                    iMin[i-1]=-1;
+                    iMin[i]=i;
                 }
-                /*
                 else if(contador==minContador)
-                    iMinContador[i]=i;
-                else
-                    iMinContador[i]=-2;  */                       //Para marcar los lugares vacios
-
+                    iMin[i]=i;
             }
         }
 
-
         printf("\nMenor cantidad de musicos: %d \nOrquestas: ",minContador);
-        printf("\n ID: %d   Nombre: %s  Lugar: %s   Tipo: ",
-                       arrayA[posicion].idUnico,arrayA[posicion].nombre,arrayA[posicion].lugar);
-                if(arrayA[posicion].tipo==1)
-                    printf("Sinfonica");
-                else if(arrayA[posicion].tipo==2)
-                    printf("Filarmonica");
-                else if(arrayA[posicion].tipo==3)
-                    printf("Camara");
-                else
-                    printf("Desconocido");
-        /*
-        for(;iMinContador[i]!=-1 || i<0;i--)
+        for(i--;iMin[i]!=-1 && i>=0;i--)
         {
-            if(iMinContador[i]!=-2)                         //Salteo los vacios
+            if(iMin[i]!=-2)                         //Salteo los vacios
             {
                 printf("\n ID: %d   Nombre: %s  Lugar: %s   Tipo: ",
-                       arrayA[iMinContador[i]].idUnico,arrayA[iMinContador[i]].nombre,arrayA[iMinContador[i]].lugar);
-                if(arrayA[iMinContador[i]].tipo==1)
+                       arrayA[iMin[i]].idUnico,arrayA[iMin[i]].nombre,arrayA[iMin[i]].lugar);
+                if(arrayA[iMin[i]].tipo==1)
                     printf("Sinfonica");
-                else if(arrayA[iMinContador[i]].tipo==2)
+                else if(arrayA[iMin[i]].tipo==2)
                     printf("Filarmonica");
-                else if(arrayA[iMinContador[i]].tipo==3)
+                else if(arrayA[iMin[i]].tipo==3)
                     printf("Camara");
                 else
                     printf("Desconocido");
             }
-        }*/
-
+        }
         retorno=0;
     }
     return retorno;
 }
 
 //G
-/** \brief Busca un valor repetido y lo lista una sola vez, junto con otros elementos de dos arrays vinculados
+/** \brief Imprime por pantalla el promedio de instrumentos por orquesta
 * \param arrayA Orquesta Array de Orquesta
-* \param arrayB Musico Array de Musico
+* \param arrayB Instrumento Array de Instrumento
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
-int Informes_g(Orquesta arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)         //cambiar Tipo
+int Informes_g_promedioInstOrq(Orquesta arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)
 {
     int retorno=-1;
     int i;
     int contadorOrq=0;
     int contadorInst=0;
-    int promedio;
+    int promedio;           //no lo pongo como float porque el compilador lo redondea, sino los contadores tmb deberian ser float
 
     if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
     {
@@ -407,9 +415,15 @@ int Informes_g(Orquesta arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)   
                 contadorInst++;
         }
 
-        promedio=contadorInst/contadorOrq;
 
-        printf("\nPromedio de instrumentos por orquesta: %d",promedio);
+        if(contadorOrq==0)
+            printf("\nNo se han ingresado orquestas");
+        else
+        {
+            promedio=contadorInst/contadorOrq;
+            printf("\nPromedio de instrumentos por orquesta: %d",promedio);
+        }
+
         retorno=0;
     }
     return retorno;
@@ -417,44 +431,54 @@ int Informes_g(Orquesta arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)   
 
 
 //H
-/** \brief Lista los elementos de dos arrays vinculados
+/** \brief Lista los musicos excepto aquellos que toquen instrumentos de viento, ordenados por apellido
 * \param arrayA Musico Array de Musico
 * \param arrayB Instrumento Array de Instrumento
 * \param sizeI int Tamaño del arrayA
 * \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) Ok
 *
 */
-int Informes_h(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)
+int Informes_h_listarMusicosExcViento(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ)
 {
     int retorno=-1;
     int i;
     int j;
+    int flag=-1;
     if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
     {
         Musico_ordenarPorApelldio(arrayA,sizeI);
-        for(i=0;i<sizeI;i++)                                                                            //Obtengo la posicion de la primer entidad
+        for(i=0;i<sizeI;i++)                                                                            // posicion de la primer entidad
         {
             if(arrayA[i].isEmpty!=1)
             {
-                Instrumento_buscarID(arrayB,sizeJ,arrayA[i].idInst,&j);                           //Obtengo la posicion de la 2da entidad buscando por el campo en comun
+                if(Instrumento_buscarID(arrayB,sizeJ,arrayA[i].idInst,&j)==-1)                           //Obtengo la posicion de la 2da entidad buscando por el campo en comun
+                    j=-1;
                 if(arrayB[j].tipo!=2 && arrayB[j].tipo!=3)
                 {
-                    printf("\nNombre: %s  Apellido: %s    Edad: %d    Nombre instrumento: %s     Tipo instrumento: ",
-                           arrayA[i].nombre,arrayA[i].apellido,arrayA[i].edad,arrayB[j].nombre);
-                    if(arrayB[j].tipo==1)
-                        printf("Cuerdas");
-                    else if(arrayB[j].tipo==2)
-                        printf("Viento-madera");
-                    else if(arrayB[j].tipo==3)
-                        printf("Viento-metal");
-                    else if(arrayB[j].tipo==4)
-                        printf("Percusion");
+                    printf("\nNombre: %s  Apellido: %s    Edad: %d    ", arrayA[i].nombre,arrayA[i].apellido,arrayA[i].edad);
+                    if(j==-1)
+                        printf("    ID instrumento desconocido");
                     else
-                        printf("Desconocido");
+                    {
+                        printf("     Nombre instrumento: %s     Tipo instrumento: ",arrayB[j].nombre);
+                        if(arrayB[j].tipo==1)
+                            printf("Cuerdas");
+                        else if(arrayB[j].tipo==2)
+                            printf("Viento-madera");
+                        else if(arrayB[j].tipo==3)
+                            printf("Viento-metal");
+                        else if(arrayB[j].tipo==4)
+                            printf("Percusion");
+                        else
+                            printf("Desconocido");
+                    }
+                    flag=0;
                 }
             }
         }
+        if(flag==-1)
+            printf("\nNo se encontraron musicos de instrumentos que no sean de viento");
         retorno=0;
     }
     return retorno;

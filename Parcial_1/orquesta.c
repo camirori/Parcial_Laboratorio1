@@ -38,15 +38,14 @@ int Orquesta_inicializar(Orquesta array[], int size)
 
 //*****************************************
 //Buscar
-//Int
 /** \brief Busca el primer lugar vacio en un array
 * \param array Orquesta Array de Orquesta
 * \param size int Tamaño del array
 * \param posicion int* Puntero a la posicion del array donde se encuentra el valor buscado
-* \return int Return (-1) si no encuentra un lugar vacio o Error [Invalid length or NULL pointer] - (0) si encuentra una posicion vacia
+* \return int Return (-1) si no encuentra un lugar vacio o Error [tamaño invalido o NULL pointer] - (0) si encuentra una posicion vacia
 *
 */
-int Orquesta_buscarEmpty(Orquesta array[], int size, int* posicion)                    //cambiar Tipo
+int Orquesta_buscarEmpty(Orquesta array[], int size, int* posicion)
 {
     int retorno=-1;
     int i;
@@ -69,10 +68,10 @@ int Orquesta_buscarEmpty(Orquesta array[], int size, int* posicion)             
 * \param array Orquesta Array de Orquesta
 * \param size int Tamaño del array
 * \param posicion int* Puntero a la posicion del array donde se encuentra el valor buscado
-* \return int Return (-1) si no encuentra el valor buscado o Error [Invalid length or NULL pointer] - (0) si encuentra el valor buscado
+* \return int Return (-1) si no encuentra el valor buscado o Error [tamaño invalido o NULL pointer] - (0) si encuentra el valor buscado
 *
 */
-int Orquesta_buscarID(Orquesta array[], int size, int valosBuscado, int* posicion)                    //cambiar Tipo
+int Orquesta_buscarID(Orquesta array[], int size, int valosBuscado, int* posicion)
 {
     int retorno=-1;
     int i;
@@ -82,7 +81,7 @@ int Orquesta_buscarID(Orquesta array[], int size, int valosBuscado, int* posicio
         {
             if(array[i].isEmpty==1)
                 continue;
-            else if(array[i].idUnico==valosBuscado)                                                   //cambiar campo ID
+            else if(array[i].idUnico==valosBuscado)
             {
                 retorno=0;
                 *posicion=i;
@@ -102,13 +101,13 @@ int Orquesta_buscarID(Orquesta array[], int size, int valosBuscado, int* posicio
 * \return int Return (-1) si Error [largo no valido o NULL pointer o no hay posiciones vacias] - (0) si se agrega un nuevo elemento exitosamente
 *
 */
-int Orquesta_alta(Orquesta array[], int size, int* contadorID)                          //cambiar Tipo
+int Orquesta_alta(Orquesta array[], int size, int* contadorID)
 {
     int retorno=-1;
     int posicion;
     if(array!=NULL && size>0 && contadorID!=NULL)
     {
-        if(Orquesta_buscarEmpty(array,size,&posicion)==-1)                          //cambiar Tipo
+        if(Orquesta_buscarEmpty(array,size,&posicion)==-1)
         {
             printf("\nNo hay lugares vacios");
         }

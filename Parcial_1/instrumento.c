@@ -28,12 +28,11 @@ int Instrumento_inicializar(Instrumento array[], int size)
 
 //*****************************************
 //Buscar
-//Int
 /** \brief Busca el primer lugar vacio en un array
 * \param array Instrumento Array de Instrumento
 * \param size int Tamaño del array
 * \param posicion int* Puntero a la posicion del array donde se encuentra el valor buscado
-* \return int Return (-1) si no encuentra un lugar vacio o Error [Invalid length or NULL pointer] - (0) si encuentra una posicion vacia
+* \return int Return (-1) si no encuentra un lugar vacio o Error [tamaño invalido o NULL pointer] - (0) si encuentra una posicion vacia
 *
 */
 int Instrumento_buscarEmpty(Instrumento array[], int size, int* posicion)
@@ -59,7 +58,7 @@ int Instrumento_buscarEmpty(Instrumento array[], int size, int* posicion)
 * \param array Instrumento Array de Instrumento
 * \param size int Tamaño del array
 * \param posicion int* Puntero a la posicion del array donde se encuentra el valor buscado
-* \return int Return (-1) si no encuentra el valor buscado o Error [Invalid length or NULL pointer] - (0) si encuentra el valor buscado
+* \return int Return (-1) si no encuentra el valor buscado o Error [tamaño invalido o NULL pointer] - (0) si encuentra el valor buscado
 *
 */
 int Instrumento_buscarID(Instrumento array[], int size, int valosBuscado, int* posicion)

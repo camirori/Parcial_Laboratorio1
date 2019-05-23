@@ -100,8 +100,7 @@ int isValidName(char* stringRecibido)
     int i;
     for(i=0;stringRecibido[i]!='\0';i++)
     {
-        //printf("%d",i);
-        if(stringRecibido[i]<'A' || (stringRecibido[i]>'Z' && stringRecibido[i]<'a') || stringRecibido[i]>'z')// o ((stringRecibido[i]<'A' || (stringRecibido[i]>'Z') && (stringRecibido[i]<'a' || stringRecibido[i]>'z'))
+        if(stringRecibido[i]<'A' || (stringRecibido[i]>'Z' && stringRecibido[i]<'a') || stringRecibido[i]>'z')
         {
             retorno=0;
             break;
@@ -310,7 +309,7 @@ int utn_getTelefono(char* msg, char* msgError, int minSize, int maxSize, int rei
 
 int isValidTelephone(char* stringRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     int i;
     for(i=0;stringRecibido[i]!='\0';i++)
     {
@@ -363,7 +362,7 @@ int utn_getDNI(char* msg, char* msgError, int reintentos, char* input)
 
 int isValidDNI(char* stringRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     int i;
     for(i=0;stringRecibido[i]!='\0';i++)
     {
@@ -417,7 +416,7 @@ int utn_getCUIT(char* msg, char* msgError, int reintentos, char* input)
 
 int isValidCUIT(char* stringRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     int i;
     int j;
     char buffer[14];
@@ -505,7 +504,7 @@ int utn_getEmail(char* msg, char* msgError, int minSize, int maxSize, int reinte
 
 int isValidEmail(char* stringRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     int i;
     for(i=0;stringRecibido[i]!='\0';i++)
     {
@@ -560,7 +559,7 @@ int utn_getTexto(char* msg, char* msgError, int minSize, int maxSize, int reinte
 
 int isValidTexto(char* stringRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     int i;
     for(i=0;stringRecibido[i]!='\0';i++)
     {
@@ -614,7 +613,7 @@ int utn_getAlfanumerico(char* msg, char* msgError, int minSize, int maxSize, int
 
 int isValidAlphanumeric(char* stringRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     int i;
     for(i=0;stringRecibido[i]!='\0';i++)
     {
@@ -668,52 +667,13 @@ int utn_getLetra(char* msg, char* msgError, int reintentos, char* resultado)
 
 int isValidLetra(char charRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     if(charRecibido<'A' || (charRecibido>'Z' && charRecibido<'a') || charRecibido>'z')
         retorno=0;
     return retorno;
 }
 
 //***************************************************************************************************
-/*
-int utn_getNumeroAleatorio(  char* msg,char* msgError,int minSize,int maxSize,int min,int max,int reintentos,int* input)
-{
-    int retorno=-1;
-    char bufferStr[maxSize];
-
-    if(msg!=NULL && msgError!=NULL && minSize<maxSize && min<max && reintentos>=0 && input!=NULL)
-    {
-        do
-        {
-            if(!getString(msg,msgError,minSize,maxSize,&reintentos,bufferStr)) //==0 sin errores !0
-            {
-                if(isValidNumber(bufferStr)==1)
-                {
-                    *input=atoi(bufferStr);     // unsigned long int strtoul(const char *str, char **end, int base)?
-                    retorno=0;
-                    break;
-                }
-                else
-                {
-                    printf("%s 2",msgError);
-                    reintentos--;
-                }
-            }
-        }
-        while(reintentos>=0);
-    }
-    return retorno;
-}
-*/
-char getNumeroAleatorio(int desde , int hasta, int iniciar, int* resultado)
-{
-    if(iniciar)                                                                 //la primera vez que se llama la funcion inciar=1 para ejecutar strand
-        srand (time(NULL));
-    *resultado=desde + (rand() % (hasta + 1 - desde));      //rand()
-    return 0;
-}
-
-//***************************************
 /** \brief Solicita el ingreso de una fecha en formato dd/mm/yyyy y valida su tamaño y su contenido
 * \param msg char* Mensaje a mostrar al solicitar el string
 * \param msgError char* Mensaje de error a mostrar
@@ -754,7 +714,7 @@ int utn_getDate(char* msg, char* msgError, int reintentos, char* input)
 
 int isValidDate(char* stringRecibido)
 {
-    int retorno=1;  // para las funciones isValid arranco con verdadero y cambio cuando encuentro un error
+    int retorno=1;
     int i;
     char buffer[4];
     int contador=0;

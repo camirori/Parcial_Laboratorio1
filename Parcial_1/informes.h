@@ -7,14 +7,14 @@
 
 int Informes_listarMusicos(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ);
 
-int Informes_a(Orquesta array[], int size);
-int Informes_b(Musico arrayA[], Orquesta arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek);
-int Informes_c(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ);
-int Informes_d(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek);
-int Informes_e(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek);
-int Informes_f(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ);
-int Informes_g(Orquesta arrayA[], Instrumento arrayB[], int sizeI, int sizeJ);
-int Informes_h(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ);
+int Informes_a_listarOrqPorLugar(Orquesta array[], int size);
+int Informes_b_listarMusicosEdad(Musico arrayA[], Orquesta arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizeK);
+int Informes_c_listarOrqCantMusico(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ);
+int Informes_d_listarInstPorOrq(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ);
+int Informes_e_listarOrqCompleta(Orquesta arrayA[], Musico arrayB[], Instrumento arrayC[], int sizeI, int sizeJ, int sizek);
+int Informes_f_orqMinMusicos(Orquesta arrayA[], Musico arrayB[], int sizeI, int sizeJ);
+int Informes_g_promedioInstOrq(Orquesta arrayA[], Instrumento arrayB[], int sizeI, int sizeJ);
+int Informes_h_listarMusicosExcViento(Musico arrayA[], Instrumento arrayB[], int sizeI, int sizeJ);
 
 
 #endif // INFORMES_H_INCLUDED

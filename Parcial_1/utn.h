@@ -36,8 +36,6 @@ int isValidLetra(char charRecibido);
 int utn_getAlfanumerico(char* msg, char* msgError, int minSize, int maxSize, int reintentos, char* input);
 int isValidAlphanumeric(char* stringRecibido);
 
-char getNumeroAleatorio(int desde , int hasta, int iniciar, int* resultado);
-
 int utn_getDate(char* msg, char* msgError, int reintentos, char* input);
 int isValidDate(char* stringRecibido);
 
