@@ -21,6 +21,7 @@ int Informes_listarMusicos(Musico arrayA[], Instrumento arrayB[], int sizeI, int
     int retorno=-1;
     int i;
     int j;
+    int flag=-1;
     if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
     {
         for(i=0;i<sizeI;i++)                                                                            //Obtengo la posicion de la primer entidad
@@ -47,8 +48,11 @@ int Informes_listarMusicos(Musico arrayA[], Instrumento arrayB[], int sizeI, int
                     else
                         printf("Desconocido");
                 }
+                flag=0;
             }
         }
+        if(flag==-1)
+            printf("\nNo se encontraron musicos");
         retorno=0;
     }
     return retorno;
