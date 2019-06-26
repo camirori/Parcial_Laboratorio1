@@ -1,0 +1,70 @@
+# depslib dependency file v1.0
+1561500655 source:/home/alumno/Workspace/Parcial_2/LinkedList.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1561500655 /home/alumno/Workspace/Parcial_2/LinkedList.h
+
+1561505911 source:/home/alumno/Workspace/Parcial_2/Entrega.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Entrega.h"
+	"utn.h"
+
+1561503949 /home/alumno/Workspace/Parcial_2/Entrega.h
+
+1561500655 /home/alumno/Workspace/Parcial_2/utn.h
+
+1561500655 source:/home/alumno/Workspace/Parcial_2/utn.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+	<time.h>
+
+1561502380 source:/home/alumno/Workspace/Parcial_2/File.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Entrega.h"
+
+1561506380 source:/home/alumno/Workspace/Parcial_2/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Entrega.h"
+	"Informes.h"
+	"utn.h"
+
+1561506365 /home/alumno/Workspace/Parcial_2/Controller.h
+
+1561506179 source:/home/alumno/Workspace/Parcial_2/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Entrega.h"
+	"File.h"
+	"utn.h"
+
+1561502201 /home/alumno/Workspace/Parcial_2/File.h
+
+1561504924 /home/alumno/Workspace/Parcial_2/Informes.h
+
+1561506316 source:/home/alumno/Workspace/Parcial_2/Informes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Entrega.h"
+	"Informes.h"
+	"utn.h"
+
